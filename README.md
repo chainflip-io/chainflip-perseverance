@@ -46,10 +46,16 @@ cat chainflip/lp-keys.json | jq -r '.ss58Address'
 6. Follow the instructions to fund the account
 
 ### Running the APIs
-
+Start by starting the node and wait for it to sync:
 ```bash
-docker-compose up -d
-docker container logs -f
+docker compose up node -d
+docker compose logs -f
+```
+
+Once the node is synced you can start the APIs:
+```bash
+docker compose up -d
+docker compose logs -f
 ```
 
 ### Interacting with the APIs

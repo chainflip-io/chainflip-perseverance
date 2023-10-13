@@ -8,6 +8,7 @@ services:
     stop_signal: SIGINT
     platform: linux/amd64
     restart: unless-stopped
+    user: root
     ports:
       - 9944:9944
       - 9933:9933
