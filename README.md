@@ -63,6 +63,18 @@ docker compose up -d
 docker compose logs -f
 ```
 
+If you want to only start the Broker API, you can run:
+```bash
+docker compose up -d broker
+docker compose logs -f broker
+```
+
+If you want to only start the LP API, you can run:
+```bash
+docker compose up -d lp
+docker compose logs -f lp
+```
+
 ### Interacting with the APIs
 You can connect to your local RPC using [PolkadotJS](https://polkadot.js.org/apps/?rpc=ws%3A%2F%2F127.0.0.1%3A9944#/explorer) to see chain events.
 > Note: The following commands take a little while to respond because it submits and waits for finality.
