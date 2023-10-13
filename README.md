@@ -51,6 +51,11 @@ Start by starting the node and wait for it to sync:
 docker compose up node -d
 docker compose logs -f
 ```
+> 💡 Note: You know that your node is synced once you start seeing logs similar to the following:
+
+```log
+chainflip-perseverance-node-1  | 2023-10-13 16:02:00 ✨ Imported #614404 (0x990b…be63)
+```
 
 Once the node is synced you can start the APIs:
 ```bash
