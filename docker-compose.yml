@@ -14,7 +14,6 @@ services:
       - 30333:30333
     volumes:
       - ./perseverance.chainspec.json:/etc/chainflip/perseverance.chainspec.json
-      - ./chainflip:/etc/chainflip
       - ./chainflip/chaindata:/etc/chainflip/chaindata
     entrypoint:
       - /usr/local/bin/chainflip-node
@@ -61,3 +60,6 @@ services:
       - --state_chain.ws_endpoint=ws://node:9944
     depends_on:
       - node
+
+volumes:
+  chaindata:

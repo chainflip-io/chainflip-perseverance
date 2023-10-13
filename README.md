@@ -49,6 +49,7 @@ cat chainflip/lp-keys.json | jq -r '.ss58Address'
 
 ```bash
 docker-compose up -d
+docker container logs -f
 ```
 
 ### Interacting with the APIs
