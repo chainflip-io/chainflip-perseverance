@@ -113,3 +113,5 @@ curl -H "Content-Type: application/json" \
     -d '{"id":1, "jsonrpc":"2.0", "method": "lp_liquidityDeposit", "params": ["Eth"]}' \
     http://localhost:10589
 ```
+
+For more details please refer to the [Integrations documentation](https://docs.chainflip.io/integration/liquidity-provision/liquidity-provision-basics).
