@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   node:
-    image: chainfliplabs/chainflip-node:perseverance
+    image: chainfliplabs/chainflip-node:perseverance-1.0.0
     pull_policy: always
     stop_grace_period: 5s
     stop_signal: SIGINT
@@ -27,7 +27,7 @@ services:
       - --sync=warp
 
   broker:
-    image: chainfliplabs/chainflip-broker-api:perseverance
+    image: chainfliplabs/chainflip-broker-api:perseverance-1.0.0
     pull_policy: always
     stop_grace_period: 5s
     stop_signal: SIGINT
@@ -45,7 +45,7 @@ services:
       - node
 
   lp:
-    image: chainfliplabs/chainflip-lp-api:perseverance
+    image: chainfliplabs/chainflip-lp-api:perseverance-1.0.0
     pull_policy: always
     stop_grace_period: 5s
     stop_signal: SIGINT
