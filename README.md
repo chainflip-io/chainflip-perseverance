@@ -46,6 +46,33 @@ cat chainflip/lp-keys.json | jq -r '.ss58Address'
 6. Follow the instructions to fund the account
 
 ### Running the APIs
+
+#### Important Note
+
+> 💡 Note: By default, the Node, LP and Broker APIs accept connection from any host. This is intentional to make testing easier. However, if you wish to make this more secure, feel free to update the ports in the `docker-compose.yml` file to only accept connections from `localhost`.
+
+> This can be achieved by adding `127.0.0.1:`   before the port number. For example:
+```yaml
+  lp:
+    image: chainfliplabs/chainflip-lp-api:perseverance
+    pull_policy: always
+    stop_grace_period: 5s
+    stop_signal: SIGINT
+    platform: linux/amd64
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:10589:80"
+    volumes:
+      - ./chainflip/keys/lp:/etc/chainflip/keys
+    entrypoint:
+      - /usr/local/bin/chainflip-lp-api
+    command:
+      - --state_chain.ws_endpoint=ws://node:9944
+    depends_on:
+      - node
+```
+
+#### Starting the Node and APIs
 Start by starting the node and wait for it to sync:
 ```bash
 docker compose up node -d
@@ -92,7 +119,7 @@ Request a swap deposit address:
 
 ```bash
 curl -H "Content-Type: application/json" \
-    -d '{"id":1, "jsonrpc":"2.0", "method": "broker_requestSwapDepositAddress", "params": ["Eth", "Flip","0xabababababababababababababababababababab", 0]}' \
+    -d '{"id":1, "jsonrpc":"2.0", "method": "broker_requestSwapDepositAddress", "params": ["ETH", "FLIP","0xabababababababababababababababababababab", 0]}' \
     http://localhost:10997
 ```
 
@@ -102,7 +129,7 @@ Register a broker account:
 
 ```bash
 curl -H "Content-Type: application/json" \
-    -d '{"id":1, "jsonrpc":"2.0", "method": "lp_registerAccount", "params": [0]}' \
+    -d '{"id":1, "jsonrpc":"2.0", "method": "lp_register_account", "params": [0]}' \
     http://localhost:10589
 ```
 
@@ -110,8 +137,8 @@ Request a liquidity deposit address:
 
 ```bash
 curl -H "Content-Type: application/json" \
-    -d '{"id":1, "jsonrpc":"2.0", "method": "lp_liquidityDeposit", "params": ["Eth"]}' \
+    -d '{"id":1, "jsonrpc":"2.0", "method": "lp_liquidity_deposit", "params": ["ETH"]}' \
     http://localhost:10589
 ```
 
-For more details please refer to the [Integrations documentation](https://docs.chainflip.io/integration/liquidity-provision/liquidity-provision-basics).
+For more details please refer to the [Integrations documentation](https://docs.chainflip.io/integration/liquidity-provision/lp-api).

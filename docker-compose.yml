@@ -11,7 +11,6 @@ services:
     user: root
     ports:
       - 9944:9944
-      - 9933:9933
       - 30333:30333
     volumes:
       - ./perseverance.chainspec.json:/etc/chainflip/perseverance.chainspec.json
