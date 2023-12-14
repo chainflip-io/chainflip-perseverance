@@ -125,12 +125,22 @@ curl -H "Content-Type: application/json" \
 
 #### LP
 
-Register a broker account:
+Register an LP account:
 
 ```bash
 curl -H "Content-Type: application/json" \
     -d '{"id":1, "jsonrpc":"2.0", "method": "lp_register_account", "params": [0]}' \
     http://localhost:10589
+```
+Register a liquidity refund address:
+
+Before you can deposit liquidity, you need to register a liquidity refund address. This is the address that will receive your liquidity back when you withdraw it.
+
+```bash
+curl -H "Content-Type: application/json" \
+    -d '{"id":1, "jsonrpc":"2.0", "method": "lp_register_liquidity_refund_address", "params": {"chain": "Ethereum", "address": "0xabababababababababababababababababababab"}}' \
+    http://localhost:10589
+
 ```
 
 Request a liquidity deposit address:
