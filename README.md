@@ -17,10 +17,10 @@ cd chainflip-perseverance
 ```bash
 mkdir -p ./chainflip/keys/lp
 mkdir -p ./chainflip/keys/broker
-docker run --platform=linux/amd64 --entrypoint=/usr/local/bin/chainflip-node chainfliplabs/chainflip-node:perseverance key generate --output-type=json > chainflip/lp-keys.json
-docker run --platform=linux/amd64 --entrypoint=/usr/local/bin/chainflip-node chainfliplabs/chainflip-node:perseverance key generate --output-type=json > chainflip/broker-keys.json
-cat chainflip/broker-keys.json | jq -r '.secretSeed' | cut -c 3- > chainflip/keys/broker/signing_key_file
-cat chainflip/lp-keys.json | jq -r '.secretSeed' | cut -c 3- > chainflip/keys/lp/signing_key_file
+docker run --platform=linux/amd64 --entrypoint=/usr/local/bin/chainflip-cli chainfliplabs/chainflip-cli:perseverance generate-keys --json > chainflip/lp-keys.json
+docker run --platform=linux/amd64 --entrypoint=/usr/local/bin/chainflip-cli chainfliplabs/chainflip-cli:perseverance generate-keys --json > chainflip/broker-keys.json
+cat chainflip/broker-keys.json | jq -r '.signing_key.secret_key' > chainflip/keys/broker/signing_key_file
+cat chainflip/lp-keys.json | jq -r '.signing_key.secret_key' > chainflip/keys/lp/signing_key_file
 ```
 
 ### Fund Accounts
@@ -34,10 +34,10 @@ cat chainflip/lp-keys.json | jq -r '.secretSeed' | cut -c 3- > chainflip/keys/lp
 2. Get the public key of the Broker or LP account:
 ```bash
 # Broker
-cat chainflip/broker-keys.json | jq -r '.ss58Address'
+cat chainflip/broker-keys.json | jq -r '.signing_account_id'
 
 # LP
-cat chainflip/lp-keys.json | jq -r '.ss58Address'
+cat chainflip/lp-keys.json | jq -r '.signing_account_id'
 ```
 
 3. Then head to the [Auctions Web App](https://auctions-perseverance.chainflip.io/nodes)
@@ -51,7 +51,7 @@ cat chainflip/lp-keys.json | jq -r '.ss58Address'
 
 > 💡 Note: By default, the Node, LP and Broker APIs accept connection from any host. This is intentional to make testing easier. However, if you wish to make this more secure, feel free to update the ports in the `docker-compose.yml` file to only accept connections from `localhost`.
 
-> This can be achieved by adding `127.0.0.1:`   before the port number. For example:
+> This can be achieved by adding `127.0.0.1:` before the port number. For example:
 ```yaml
   lp:
     image: chainfliplabs/chainflip-lp-api:perseverance
@@ -125,12 +125,22 @@ curl -H "Content-Type: application/json" \
 
 #### LP
 
-Register a broker account:
+Register an LP account:
 
 ```bash
 curl -H "Content-Type: application/json" \
     -d '{"id":1, "jsonrpc":"2.0", "method": "lp_register_account", "params": [0]}' \
     http://localhost:10589
+```
+Register a liquidity refund address:
+
+Before you can deposit liquidity, you need to register a liquidity refund address. This is the address that will receive your liquidity back when you withdraw it.
+
+```bash
+curl -H "Content-Type: application/json" \
+    -d '{"id":1, "jsonrpc":"2.0", "method": "lp_register_liquidity_refund_address", "params": {"chain": "Ethereum", "address": "0xabababababababababababababababababababab"}}' \
+    http://localhost:10589
+
 ```
 
 Request a liquidity deposit address:
