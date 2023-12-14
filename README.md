@@ -34,10 +34,10 @@ cat chainflip/lp-keys.json | jq -r '.signing_key.secret_key' > chainflip/keys/lp
 2. Get the public key of the Broker or LP account:
 ```bash
 # Broker
-cat chainflip/broker-keys.json | jq -r '.ss58Address'
+cat chainflip/broker-keys.json | jq -r '.signing_account_id'
 
 # LP
-cat chainflip/lp-keys.json | jq -r '.ss58Address'
+cat chainflip/lp-keys.json | jq -r '.signing_account_id'
 ```
 
 3. Then head to the [Auctions Web App](https://auctions-perseverance.chainflip.io/nodes)
