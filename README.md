@@ -25,6 +25,8 @@ cat chainflip/lp-keys.json | jq -r '.signing_key.secret_key' > chainflip/keys/lp
 
 ### Fund Accounts
 
+> Note: The minimum funding amount for registering as a Broker or LP role is technically 1 FLIP. However, we recommend funding your accounts with at least 5 FLIP to account for transaction fees.
+
 1. Get some `tFLIP`
 
     a. Add the `tFLIP` token to your wallet using the following address: `0x0485D65da68b2A6b48C3fA28D7CCAce196798B94`
