@@ -51,7 +51,7 @@ cat chainflip/lp-keys.json | jq -r '.signing_account_id'
 
 > 💡 Note: By default, the Node, LP and Broker APIs accept connection from any host. This is intentional to make testing easier. However, if you wish to make this more secure, feel free to update the ports in the `docker-compose.yml` file to only accept connections from `localhost`.
 
-> This can be achieved by adding `127.0.0.1:`   before the port number. For example:
+> This can be achieved by adding `127.0.0.1:` before the port number. For example:
 ```yaml
   lp:
     image: chainfliplabs/chainflip-lp-api:perseverance

@@ -34,6 +34,8 @@ services:
     restart: unless-stopped
     ports:
       - 10997:80
+    environment:
+      - RUST_LOG=debug
     volumes:
       - ./chainflip/keys/broker:/etc/chainflip/keys
     entrypoint:
@@ -52,6 +54,8 @@ services:
     restart: unless-stopped
     ports:
       - 10589:80
+    environment:
+      - RUST_LOG=debug
     volumes:
       - ./chainflip/keys/lp:/etc/chainflip/keys
     entrypoint:
