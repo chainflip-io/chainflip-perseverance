@@ -14,7 +14,7 @@ services:
       - 30333:30333
     volumes:
       - ./perseverance.chainspec.json:/etc/chainflip/perseverance.chainspec.json
-      - ./chainflip/chaindata:/etc/chainflip/chaindata
+      - chaindata:/etc/chainflip/chaindata
     entrypoint:
       - /usr/local/bin/chainflip-node
     command:
