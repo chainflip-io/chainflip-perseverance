@@ -17,10 +17,10 @@ cd chainflip-perseverance
 ```bash
 mkdir -p ./chainflip/keys/lp
 mkdir -p ./chainflip/keys/broker
-docker run --platform=linux/amd64 --entrypoint=/usr/local/bin/chainflip-node chainfliplabs/chainflip-node:perseverance key generate --output-type=json > chainflip/lp-keys.json
-docker run --platform=linux/amd64 --entrypoint=/usr/local/bin/chainflip-node chainfliplabs/chainflip-node:perseverance key generate --output-type=json > chainflip/broker-keys.json
-cat chainflip/broker-keys.json | jq -r '.secretSeed' | cut -c 3- > chainflip/keys/broker/signing_key_file
-cat chainflip/lp-keys.json | jq -r '.secretSeed' | cut -c 3- > chainflip/keys/lp/signing_key_file
+docker run --platform=linux/amd64 --entrypoint=/usr/local/bin/chainflip-cli chainfliplabs/chainflip-cli:perseverance generate-keys --json > chainflip/lp-keys.json
+docker run --platform=linux/amd64 --entrypoint=/usr/local/bin/chainflip-cli chainfliplabs/chainflip-cli:perseverance generate-keys --json > chainflip/broker-keys.json
+cat chainflip/broker-keys.json | jq -r '.signing_key.secret_key' > chainflip/keys/broker/signing_key_file
+cat chainflip/lp-keys.json | jq -r '.signing_key.secret_key' > chainflip/keys/lp/signing_key_file
 ```
 
 ### Fund Accounts
